@@ -1,0 +1,52 @@
+pipeline{
+    agent any
+    stages{
+        stage('Build'){
+            steps{
+                echo 'Building the code using Maven'
+
+            }
+        }
+        stage('Unit and Integration Tests'){
+            steps{
+                echo 'Running'
+            }
+            post{
+                always{
+                    emailext(
+                        subject: 'Test',
+                        to: 'maheshi96prem@gmail.com',
+                        body: "${currentBuild.result}: Job ",
+                        attachLog: true;
+                    )
+                }
+            }
+        }
+        stage('Code analysis'){
+            steps{
+                echo 'code'
+            }
+        }
+        stage ('Integration'){
+            steps{
+                echo 'Running'
+            }
+            post{
+                always{
+                    emailext(
+                        subject: 'Test',
+                        to: 'maheshi96prem@gmail.com',
+                        body: "${currentBuild.result}: Job ",
+                        attachLog: true;
+
+                    )
+                }
+            }
+        }
+        stage ('Deploy to production'){
+            steps{
+                echo 'Gi'
+            }
+        }
+    }
+}
